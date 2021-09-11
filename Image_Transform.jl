@@ -29,54 +29,24 @@ begin
 	using HypertextLiteral
 end
 
-# ╔═╡ 29dfe3d6-c353-4081-8192-b12f374bf702
+
 filter!(LOAD_PATH) do path
 	path != "@v#.#"
 end;
 
-# ╔═╡ 0238c1a9-b0c7-4451-ab01-b4a0b2acab79
 using Statistics
 
-# ╔═╡ ac8ff080-ed61-11ea-3650-d9df06123e1f
-md"""
-
-# **Homework 1** - _images and arrays_
-`18.S191`, Spring 2021
-
-`Due Date`: **Friday Feb 26, 2021 at 11:59pm EST**
-
-This notebook contains _built-in, live answer checks_! In some exercises you will see a coloured box, which runs a test case on your code, and provides feedback based on the result. Simply edit the code, run it, and the check runs again.
-
-_For MIT students:_ there will also be some additional (secret) test cases that will be run as part of the grading process, and we will look at your notebook and write comments.
-
-Feel free to ask questions!
-"""
-
-# ╔═╡ 911ccbce-ed68-11ea-3606-0384e7580d7c
-# edit the code below to set your name and kerberos ID (i.e. email without @mit.edu)
 
 student = (name = "Jazzy Doe", kerberos_id = "jazz")
 
-# press the ▶ button in the bottom right of this cell to run your edits
-# or use Shift+Enter
 
-# you might need to wait until all other cells in this notebook have completed running. 
-# scroll down the page to see what's up
-
-# ╔═╡ 8ef13896-ed68-11ea-160b-3550eeabbd7d
-md"""
-
-Submission by: **_$(student.name)_** ($(student.kerberos_id)@mit.edu)
-"""
-
-# ╔═╡ 5f95e01a-ee0a-11ea-030c-9dba276aba92
 md"""
 #### Intializing packages
 
 _When running this notebook for the first time, this could take up to 15 minutes. Hang in there!_
 """
 
-# ╔═╡ 540ccfcc-ee0a-11ea-15dc-4f8120063397
+
 md"""
 ## **Exercise 1** - _Manipulating vectors (1D images)_
 
@@ -84,43 +54,39 @@ A `Vector` is a 1D array. We can think of that as a 1D image.
 
 """
 
-# ╔═╡ 467856dc-eded-11ea-0f83-13d939021ef3
+
 example_vector = [0.5, 0.4, 0.3, 0.2, 0.1, 0.0, 0.7, 0.0, 0.7, 0.9]
 
-# ╔═╡ ad6a33b0-eded-11ea-324c-cfabfd658b56
+
 md"""
 $(html"<br>")
 #### Exerise 1.1
 👉 Make a random vector `random_vect` of length 10 using the `rand` function.
 """
 
-# ╔═╡ f51333a6-eded-11ea-34e6-bfbb3a69bcb0
+
 rando = (rand(1,10))
 
-# replace `missing` with your code!
 
-# ╔═╡ 49dc2bbd-01c8-4d42-99b1-3f0eff81eacc
+
+
 random_vect = [rando[1], rando[2], rando[3], rando[4], rando[5], rando[6], rando[7], rando[8], rando[9], rando[10]] 
 
-# ╔═╡ 5da8cbe8-eded-11ea-2e43-c5b7cc71e133
+
 begin
 	colored_line(x::Vector) = hcat(Gray.(Float64.(x)))'
 	colored_line(x::Any) = nothing
 end
 
-# ╔═╡ 56ced344-eded-11ea-3e81-3936e9ad5777
+
 colored_line(example_vector)
 
-# ╔═╡ b18e2c54-edf1-11ea-0cbf-85946d64b6a2
+
 colored_line(random_vect)
 
-# ╔═╡ 77adb065-bfd4-4680-9c2a-ad4d92689dbf
-md"#### Exerise 1.2
-👉 Make a function `my_sum` using a `for` loop, which computes the total of a vector of numbers."
 
-# ╔═╡ bd907ee1-5253-4cae-b5a5-267dac24362a
 function my_sum(xs)
-	# your code here!
+	# code here!
 	sum = 0
 	for i in 1:length(xs)
 		
@@ -130,16 +96,10 @@ function my_sum(xs)
 		
 end
 
-# ╔═╡ 6640110a-d171-4b32-8d12-26979a36b718
-my_sum([1,2,3])
 
-# ╔═╡ cf738088-eded-11ea-2915-61735c2aa990
-md"#### Exerise 1.3
-👉 Use your `my_sum` function to write a function `mean`, which computes the mean/average of a vector of numbers."
 
-# ╔═╡ 0ffa8354-edee-11ea-2883-9d5bfea4a236
 function mean(xs)
-	# your code here!
+	# code here!
 	sum = 0
 	for i in 1:length(xs)
 		sum += xs[i]
@@ -148,37 +108,15 @@ function mean(xs)
 	return men
 end
 
-# ╔═╡ 1f104ce4-ee0e-11ea-2029-1d9c817175af
+
 mean([1, 2, 3])
 
-# ╔═╡ 1f229ca4-edee-11ea-2c56-bb00cc6ea53c
-md"👉 Define `m` to be the mean of `random_vect`."
 
-# ╔═╡ 2a391708-edee-11ea-124e-d14698171b68
 m = mean(random_vect) # replace `missing` with your code!
 
-# ╔═╡ e2863d4c-edef-11ea-1d67-332ddca03cc4
-md"""#### Exerise 1.4
-👉 Write a function `demean`, which takes a vector `xs` and subtracts the mean from each value in `xs`. Use your `mean` function!"""
 
-# ╔═╡ ea8d92f8-159c-4161-8c54-bab7bc00f290
-md"""
-> ### Note about _mutation_
-> There are two ways to think about this exercise, you could _modify_ the original vector, or you can _create a new vector_. We often prefer the second version, so that the original data is preserved. We generally only use code of the first variant in the most performance-sensitive parts of a program, as it requires more care to write and use correctly. _**Be careful not to get carried away in optimizing code**, especially when learning a new language!_
-> 
-> There is a convention among Julians that functions that modify their argument have a `!` in their name. For example, `sort(x)` returns a sorted _copy_ of `x`, while `sort!(x)` _modifies_ `x` to be sorted.
-> 
-> #### Tips for writing non-mutating code
-> 1. _Rewriting_ an existing mutating function to be non-mutating can feel like a 'tedious' and 'inefficient' process. Often, instead of trying to **rewrite** a mutating function, it's best to take a step back and try to think of your problem as _constructing something new_. Instead of a `for` loop, it might make more sense to use **descriptive** primitives like [broadcasting with the dot syntax](https://docs.julialang.org/en/v1/manual/functions/#man-vectorized) (also for [math operators](https://docs.julialang.org/en/v1/manual/mathematical-operations/#man-dot-operators)), and [map and filter](https://www.youtube.com/watch?v=_O-HBDZMLrM).
-> 
-> 
-> 2. If a mutating algorithm makes the most sense for your problem, then you can first use `copy` to create a copy of an array, and then modify that copy.
-> 
-> We will cover this topic more in the later exercises!
 
-"""
 
-# ╔═╡ ec5efe8c-edef-11ea-2c6f-afaaeb5bc50c
 function demean(xs)
 	# your code here!
 	men = mean(xs)
@@ -189,18 +127,14 @@ function demean(xs)
 	return xt
 end
 
-# ╔═╡ d6ddafdd-1a44-48c7-b49a-554073cdf331
+
 test_vect = let
 	
 	# feel free to change your test case here!
 	to_create = [-1.0, -1.5, 8.5]
 	
 	
-	####
-	# this cell is a bit funky to deal with a common pitfall from last year
-	# it regenerates the vector if you accidentally wrote a mutating function
 	
-	# don't worry about how it works for this exercise!
 	
 	demean
 	to_create
@@ -1419,172 +1353,4 @@ custom_filter(cam_image)
 # ╔═╡ 83eb9ca0-ed68-11ea-0bc5-99a09c68f867
 md"_homework 1, version 7_"
 
-# ╔═╡ Cell order:
-# ╟─8ef13896-ed68-11ea-160b-3550eeabbd7d
-# ╟─ac8ff080-ed61-11ea-3650-d9df06123e1f
-# ╠═911ccbce-ed68-11ea-3606-0384e7580d7c
-# ╟─5f95e01a-ee0a-11ea-030c-9dba276aba92
-# ╠═65780f00-ed6b-11ea-1ecf-8b35523a7ac0
-# ╟─29dfe3d6-c353-4081-8192-b12f374bf702
-# ╟─54056a02-ee0a-11ea-101f-47feb6623bec
-# ╟─540ccfcc-ee0a-11ea-15dc-4f8120063397
-# ╠═467856dc-eded-11ea-0f83-13d939021ef3
-# ╠═56ced344-eded-11ea-3e81-3936e9ad5777
-# ╟─ad6a33b0-eded-11ea-324c-cfabfd658b56
-# ╠═f51333a6-eded-11ea-34e6-bfbb3a69bcb0
-# ╠═49dc2bbd-01c8-4d42-99b1-3f0eff81eacc
-# ╟─b18e2c54-edf1-11ea-0cbf-85946d64b6a2
-# ╠═397941fc-edee-11ea-33f2-5d46c759fbf7
-# ╟─b1d5ca28-edf6-11ea-269e-75a9fb549f1d
-# ╟─5da8cbe8-eded-11ea-2e43-c5b7cc71e133
-# ╟─77adb065-bfd4-4680-9c2a-ad4d92689dbf
-# ╠═bd907ee1-5253-4cae-b5a5-267dac24362a
-# ╠═6640110a-d171-4b32-8d12-26979a36b718
-# ╟─e0bfc973-2808-4f84-b065-fb3d05401e30
-# ╟─24090306-7395-4f2f-af31-34f7486f3945
-# ╟─cf738088-eded-11ea-2915-61735c2aa990
-# ╠═0238c1a9-b0c7-4451-ab01-b4a0b2acab79
-# ╠═0ffa8354-edee-11ea-2883-9d5bfea4a236
-# ╠═1f104ce4-ee0e-11ea-2029-1d9c817175af
-# ╟─38dc80a0-edef-11ea-10e9-615255a4588c
-# ╟─1f229ca4-edee-11ea-2c56-bb00cc6ea53c
-# ╠═2a391708-edee-11ea-124e-d14698171b68
-# ╟─2b1ccaca-edee-11ea-34b0-c51659f844d0
-# ╟─e2863d4c-edef-11ea-1d67-332ddca03cc4
-# ╟─ea8d92f8-159c-4161-8c54-bab7bc00f290
-# ╠═ec5efe8c-edef-11ea-2c6f-afaaeb5bc50c
-# ╟─d6ddafdd-1a44-48c7-b49a-554073cdf331
-# ╟─29e10640-edf0-11ea-0398-17dbf4242de3
-# ╠═1267e961-5b75-4b55-8080-d45316a03b9b
-# ╠═38155b5a-edf0-11ea-3e3f-7163da7433fb
-# ╟─adf476d8-a334-4b35-81e8-cc3b37de1f28
-# ╟─a5f8bafe-edf0-11ea-0da3-3330861ae43a
-# ╠═b6b65b94-edf0-11ea-3686-fbff0ff53d08
-# ╠═4a5e9d2c-dd90-4bb0-9e31-3f5c834406b4
-# ╟─d862fb16-edf1-11ea-36ec-615d521e6bc0
-# ╟─aa1ff74a-4e78-4ef1-8b8d-3a60a168cf6d
-# ╟─e3394c8a-edf0-11ea-1bb8-619f7abb6881
-# ╟─e083b3e8-ed61-11ea-2ec9-217820b0a1b4
-# ╠═59414833-a108-4b1e-9a34-0f31dc907c6e
-# ╠═c5484572-ee05-11ea-0424-f37295c3072d
-# ╠═c8ecfe5c-ee05-11ea-322b-4b2714898831
-# ╟─e86ed944-ee05-11ea-3e0f-d70fc73b789c
-# ╠═6ccd8902-0dd9-4335-a11a-ee7f9a1a6c09
-# ╟─15088baa-c337-405d-8885-19a6e2bfd6aa
-# ╠═7ad4f6bc-588e-44ab-8ca9-c87cd1048442
-# ╟─a55bb5ca-600b-4aa0-b95f-7ece20845c9b
-# ╠═c5dc0cc8-9305-47e6-8b20-a9f8ef867799
-# ╠═de772e21-0bea-4fd2-868a-9a7d32550bc9
-# ╟─21bdc692-91ee-474d-ae98-455913a2342e
-# ╠═2ae3f379-96ce-435d-b863-deba4586ec71
-# ╟─c49ba901-d798-489a-963c-4cc113c7abfd
-# ╠═93451c37-77e1-4d4f-9788-c2a3da1401ee
-# ╟─f52e4914-2926-4a42-9e45-9caaace9a7db
-# ╠═a8b2270a-600c-4f83-939e-dc5ab35f4735
-# ╠═c320b39d-4cea-4fa1-b1ce-053c898a67a6
-# ╟─09102183-f9fb-4d89-b4f9-5d76af7b8e90
-# ╟─d8cf9bd5-dbf7-4841-acf9-eef7e7cabab3
-# ╠═ebe1d05c-f6aa-437d-83cb-df0ba30f20bf
-# ╠═c427554a-6f6a-43f1-b03b-f83239887cee
-# ╟─63ac142e-6d9d-4109-9286-030a02c900b4
-# ╟─50e2b0fb-b06d-4ac1-bdfb-eab833466736
-# ╟─4fd07e01-2f8b-4ec9-9f4f-8a9e5ff56fb6
-# ╠═97c15896-6d99-4292-b7d7-4fcd2353656f
-# ╠═cbb9bf41-4c21-42c7-b0e0-fc1ce29e0eb1
-# ╟─3f1a670b-44c2-4cab-909c-65f4ae9ed14b
-# ╠═21ba6e75-55a2-4614-9b5d-ea6378bf1d98
-# ╠═3792c3e9-c6a3-40b9-815f-1e011f913967
-# ╠═10b267c5-f4ff-488f-8274-fad66a0af716
-# ╟─f7825c18-ff28-4e23-bf26-cc64f2f5049a
-# ╠═d994e178-78fd-46ab-a1bc-a31485423cad
-# ╠═2b2ae8b0-97fd-4ccf-ae9f-79c074c806e0
-# ╟─c54ccdea-ee05-11ea-0365-23aaf053b7d7
-# ╠═c182bf1f-2e3f-40de-964f-dc077ec84703
-# ╠═4010780a-cad8-43bc-930c-467738f769ce
-# ╠═97433d88-29f8-46e4-95fa-e11e49e3bb74
-# ╠═f6898df6-ee07-11ea-2838-fde9bc739c11
-# ╠═5be9b144-ee0d-11ea-2a8d-8775de265a1d
-# ╟─4d0158d0-ee0d-11ea-17c3-c169d4284acb
-# ╟─5f6635b4-63ed-4a62-969c-bd4084a8202f
-# ╟─f6cc03a0-ee07-11ea-17d8-013991514d42
-# ╠═63e8d636-ee0b-11ea-173d-bd3327347d55
-# ╟─80a4cb23-49c9-4446-a3ec-b2203128dc27
-# ╟─2cc2f84e-ee0d-11ea-373b-e7ad3204bb00
-# ╠═b8f26960-ee0a-11ea-05b9-3f4bc1099050
-# ╠═5de3a22e-ee0b-11ea-230f-35df4ca3c96d
-# ╠═4e21e0c4-ee0b-11ea-3d65-b311ae3f98e9
-# ╠═6dbf67ce-ee0b-11ea-3b71-abc05a64dc43
-# ╠═de81f1c2-9784-4e61-9bc3-930101b0933c
-# ╠═22ad8b1e-ba39-44ef-89a5-59431b43f109
-# ╠═30491199-c923-44e1-9f33-7914adc4a1c5
-# ╟─846b1330-ee0b-11ea-3579-7d90fafd7290
-# ╠═943103e2-ee0b-11ea-33aa-75a8a1529931
-# ╠═f5c85eae-8c00-4e32-b715-94464321e04d
-# ╟─55b138b7-19fb-4da1-9eb1-1e8304528251
-# ╟─f68d4a36-ee07-11ea-0832-0360530f102e
-# ╠═fbd1638d-8d7a-4d12-aff9-9c160cc3fd74
-# ╠═f6a655f8-ee07-11ea-13b6-43ca404ddfc7
-# ╟─c905b73e-ee1a-11ea-2e36-23b8e73bfdb6
-# ╟─7720740e-2d2b-47f7-98fd-500ed3eee479
-# ╠═90421bca-0804-4d6b-8bd0-3ddbd54cc5fe
-# ╠═b2329e4c-6204-453e-8998-2414b869b808
-# ╟─23fcd65f-0182-41f3-80ec-d85b05136c47
-# ╠═5055b74c-b98d-41fa-a0d8-cb36200d82cc
-# ╠═8db17b2b-0cf9-40ba-8f6f-2e53be7b6355
-# ╟─a8a597e0-a01c-40cd-9902-d56430afd938
-# ╟─f6b218c0-ee07-11ea-2adb-1968c4fd473a
-# ╠═04e6b486-ceb7-45fe-a6ca-733703f16357
-# ╟─a6d9635b-85ed-4590-ad09-ca2903ea8f1d
-# ╟─f6bf64da-ee07-11ea-3efb-05af01b14f67
-# ╠═13e9ec8d-f615-4833-b1cf-0153010ccb65
-# ╟─25dad7ce-ee0b-11ea-3e20-5f3019dd7fa3
-# ╠═9751586e-ee0c-11ea-0cbb-b7eda92977c9
-# ╟─f6d6c71a-ee07-11ea-2b63-d759af80707b
-# ╠═f38b198d-39cf-456f-a841-1ba08f206010
-# ╠═1ea53f41-b791-40e2-a0f8-04e13d856829
-# ╟─31ef3710-e4c9-4aa7-bd8f-c69cc9a977ee
-# ╟─f6ef2c2e-ee07-11ea-13a8-2512e7d94426
-# ╟─f6fc1312-ee07-11ea-39a0-299b67aee3d8
-# ╠═db4bad9f-df1c-4640-bb34-dd2fe9bdce18
-# ╟─0000b7f8-4c43-4dd8-8665-0dfe59e74c0a
-# ╠═774b4ce6-ee1b-11ea-2b48-e38ee25fc89b
-# ╠═7e4aeb70-ee1b-11ea-100f-1952ba66f80f
-# ╟─48de5bc2-72d3-11eb-3fd9-eff2b686cb75
-# ╠═8e848279-1b3e-4f32-8c0c-45693d12de96
-# ╟─f70823d2-ee07-11ea-2bb3-01425212aaf9
-# ╠═21a5885d-00ab-428b-96c3-c28c98c4ca6d
-# ╟─d896b7fd-20db-4aa9-bbcf-81b1cd44ec46
-# ╠═e70a84d4-ee0c-11ea-0640-bf78653ba102
-# ╠═ac15e0d0-ee0c-11ea-1eaf-d7f88b5df1d7
-# ╟─9604bc44-ee1b-11ea-28f8-7f7af8d0cbb2
-# ╟─f714699e-ee07-11ea-08b6-5f5169861b57
-# ╠═bdc2df7c-ee0c-11ea-2e9f-7d2c085617c1
-# ╟─4139ee66-ee0a-11ea-2282-15d63bcca8b8
-# ╠═20402780-426b-4caa-af8f-ff1e7787b7f9
-# ╟─ed9fb2ac-2680-42b7-9b00-591e45a5e105
-# ╟─e87e0d14-43a5-490d-84d9-b14ece472061
-# ╠═d38c6958-9300-4f7a-89cf-95ca9e899c13
-# ╠═82f1e006-60fe-4ad1-b9cb-180fafdeb4da
-# ╠═54c83589-b8c6-422a-b5e9-d8e0ee72a224
-# ╠═18e781f8-66f3-4216-bc84-076a08f9f3fb
-# ╠═ebf3193d-8c8d-4425-b252-45067a5851d9
-# ╟─87dabfd2-461e-4769-ad0f-132cb2370b88
-# ╠═8917529e-fa7a-412b-8aea-54f92f6270fa
-# ╠═ee5f21fb-1076-42b6-8926-8bbb6ed0ad67
-# ╠═9e5a08dd-332a-486b-94ab-15c49e72e522
-# ╟─91f4778e-ee20-11ea-1b7e-2b0892bd3c0f
-# ╟─8ffe16ce-ee20-11ea-18bd-15640f94b839
-# ╟─5842895a-ee10-11ea-119d-81e4c4c8c53b
-# ╟─756d150a-b7bf-4bf5-b372-5b0efa80d987
-# ╟─4bc94bec-da39-4f8a-82ee-9953ed73b6a4
-# ╟─8ce6ad06-819c-4af5-bed7-56ecc08c97be
-# ╟─dfa40e89-03fc-4a7a-825e-92d67ee217b2
-# ╟─086ec1ff-b62d-4566-9973-5b2cc3353409
-# ╟─2f6fb3a6-bb5d-4c7a-9297-84dd4b16c7c3
-# ╟─c22f688b-dc04-4a94-b541-fe06266c5446
-# ╟─ab3d1b70-88e8-4118-8d3e-601a8a68f72d
-# ╟─8cb0aee8-5774-4490-9b9e-ada93416c089
-# ╟─115ded8c-ee0a-11ea-3493-89487315feb7
-# ╟─dfb7c6be-ee0d-11ea-194e-9758857f7b20
-# ╟─e15ad330-ee0d-11ea-25b6-1b1b3f3d7888
-# ╟─83eb9ca0-ed68-11ea-0bc5-99a09c68f867
+
